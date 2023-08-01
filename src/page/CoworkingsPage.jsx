@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CoworkingsPage = () => {
   const [coworkings, setCoworkings] = useState([]);
@@ -42,6 +43,7 @@ const CoworkingsPage = () => {
             Adresse :{coworking.address.number} {coworking.address.street} - {coworking.address.postcode}
             {coworking.address.city}
           </p>
+          <Link to={`/coworkings/${coworking.id}/update`}>Mettre à jour le coworking</Link>
           <button onClick={() => handleDeleteCoworking(coworking.id)}>Supprimer le coworking</button>
         </div>
       ))}
