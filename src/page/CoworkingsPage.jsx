@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import HeaderAdmin from "../component/HeaderAdmin";
 
 const CoworkingsPage = () => {
   const [coworkings, setCoworkings] = useState([]);
@@ -33,21 +34,24 @@ const CoworkingsPage = () => {
   };
 
   return (
-    <div>
-      <h1>Liste des coworkings</h1>
-      {deleteCoworkingMessage && <p>{deleteCoworkingMessage}</p>}
-      {coworkings.map((coworking) => (
-        <div key={coworking.id}>
-          <h2>{coworking.name}</h2>
-          <p>
-            Adresse :{coworking.address.number} {coworking.address.street} - {coworking.address.postcode}
-            {coworking.address.city}
-          </p>
-          <Link to={`/coworkings/${coworking.id}/update`}>Mettre à jour le coworking</Link>
-          <button onClick={() => handleDeleteCoworking(coworking.id)}>Supprimer le coworking</button>
-        </div>
-      ))}
-    </div>
+    <>
+      <HeaderAdmin />
+      <div>
+        <h1>Liste des coworkings</h1>
+        {deleteCoworkingMessage && <p>{deleteCoworkingMessage}</p>}
+        {coworkings.map((coworking) => (
+          <div key={coworking.id}>
+            <h2>{coworking.name}</h2>
+            <p>
+              Adresse :{coworking.address.number} {coworking.address.street} - {coworking.address.postcode}
+              {coworking.address.city}
+            </p>
+            <Link to={`/admin/coworkings/${coworking.id}/update`}>Mettre à jour le coworking</Link>
+            <button onClick={() => handleDeleteCoworking(coworking.id)}>Supprimer le coworking</button>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

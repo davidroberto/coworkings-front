@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import HeaderAdmin from "../component/HeaderAdmin";
 
 const CreateCoworkingPage = () => {
   const navigate = useNavigate();
@@ -52,64 +53,68 @@ const CreateCoworkingPage = () => {
 
     const responseCreateJs = await responseCreate.json();
 
-	// on redirige vers la liste des coworkings
-    navigate("/coworkings");
+    // on redirige vers la liste des coworkings
+    navigate("/admin/coworkings");
   };
 
   return (
-    <form onSubmit={handleCreateCoworking}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" />
-      </div>
+    <>
+      <HeaderAdmin />
 
-      <div>
-        <label htmlFor="superficy">Superficy</label>
-        <input type="number" name="superficy" />
-      </div>
+      <form onSubmit={handleCreateCoworking}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" />
+        </div>
 
-      <div>
-        <label htmlFor="capacity">Capacity</label>
-        <input type="number" name="capacity" />
-      </div>
+        <div>
+          <label htmlFor="superficy">Superficy</label>
+          <input type="number" name="superficy" />
+        </div>
 
-      <div>
-        <label htmlFor="price_hour">Price by hour</label>
-        <input type="number" name="price_hour" />
-      </div>
+        <div>
+          <label htmlFor="capacity">Capacity</label>
+          <input type="number" name="capacity" />
+        </div>
 
-      <div>
-        <label htmlFor="price_day">Price by day</label>
-        <input type="number" name="price_day" />
-      </div>
+        <div>
+          <label htmlFor="price_hour">Price by hour</label>
+          <input type="number" name="price_hour" />
+        </div>
 
-      <div>
-        <label htmlFor="price_month">Price by month</label>
-        <input type="number" name="price_month" />
-      </div>
+        <div>
+          <label htmlFor="price_day">Price by day</label>
+          <input type="number" name="price_day" />
+        </div>
 
-      <div>
-        <label htmlFor="address_number">Address number</label>
-        <input type="number" name="address_number" />
-      </div>
+        <div>
+          <label htmlFor="price_month">Price by month</label>
+          <input type="number" name="price_month" />
+        </div>
 
-      <div>
-        <label htmlFor="address_street">Address street</label>
-        <input type="text" name="address_street" />
-      </div>
+        <div>
+          <label htmlFor="address_number">Address number</label>
+          <input type="number" name="address_number" />
+        </div>
 
-      <div>
-        <label htmlFor="address_postcode">Address zipcode</label>
-        <input type="number" name="address_postcode" />
-      </div>
+        <div>
+          <label htmlFor="address_street">Address street</label>
+          <input type="text" name="address_street" />
+        </div>
 
-      <div>
-        <label htmlFor="address_city">Address city</label>
-        <input type="text" name="address_city" />
-      </div>
+        <div>
+          <label htmlFor="address_postcode">Address zipcode</label>
+          <input type="number" name="address_postcode" />
+        </div>
 
-      <input type="submit" />
-    </form>
+        <div>
+          <label htmlFor="address_city">Address city</label>
+          <input type="text" name="address_city" />
+        </div>
+
+        <input type="submit" />
+      </form>
+    </>
   );
 };
 
