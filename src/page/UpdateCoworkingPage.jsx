@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderAdmin from "../component/HeaderAdmin";
+import Cookies from "js-cookie";
 
 const UpdateCoworkingPage = () => {
   const { id } = useParams();
@@ -46,10 +47,13 @@ const UpdateCoworkingPage = () => {
       },
     };
 
+    const token = Cookies.get("jwt");
+
     const responseUpdate = await fetch(`http://localhost:3010/api/coworkings/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(coworkingData),
     });

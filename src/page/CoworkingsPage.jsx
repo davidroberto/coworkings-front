@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderAdmin from "../component/HeaderAdmin";
+import Cookies from "js-cookie";
 
 const CoworkingsPage = () => {
   const [coworkings, setCoworkings] = useState([]);
@@ -24,8 +25,13 @@ const CoworkingsPage = () => {
   }, [deleteCoworkingMessage]);
 
   const handleDeleteCoworking = async (coworkingId) => {
+    const token = Cookies.get("jwt");
+
     const responseDelete = await fetch(`http://localhost:3010/api/coworkings/${coworkingId}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     const responseDeleteJs = await responseDelete.json();
