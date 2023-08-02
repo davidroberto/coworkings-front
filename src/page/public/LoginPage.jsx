@@ -1,6 +1,9 @@
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
@@ -25,6 +28,8 @@ const LoginPage = () => {
 
       // je stocke le jwt dans un cookie
       Cookies.set("jwt", jwt);
+
+      navigate("/admin");
     }
   };
 

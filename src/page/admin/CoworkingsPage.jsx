@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import HeaderAdmin from "../component/HeaderAdmin";
+import HeaderAdmin from "../../component/admin/HeaderAdmin";
 import Cookies from "js-cookie";
 
 const CoworkingsPage = () => {
