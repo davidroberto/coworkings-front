@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 
 const HeaderAdmin = () => {
@@ -9,6 +10,9 @@ const HeaderAdmin = () => {
 
     navigate("/login");
   };
+
+  const jwt = Cookies.get("jwt");
+  const user = jwtDecode(jwt);
 
   return (
     <header>
@@ -22,6 +26,9 @@ const HeaderAdmin = () => {
           </li>
           <li>
             <Link to={"/admin/coworkings/create"}>Ajouter un coworking</Link>
+          </li>
+          <li>
+            <p>Connecté en tant que {user.data}</p>
           </li>
           <li>
             <a href="#" onClick={handleLogout}>
