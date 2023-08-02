@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../component/admin/HeaderAdmin";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 const CreateCoworkingPage = () => {
   const navigate = useNavigate();
@@ -61,6 +62,12 @@ const CreateCoworkingPage = () => {
     // on redirige vers la liste des coworkings
     navigate("/admin/coworkings");
   };
+
+  useEffect(() => {
+    if (!Cookies.get("jwt")) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <>

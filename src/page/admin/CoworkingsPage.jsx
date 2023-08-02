@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../component/admin/HeaderAdmin";
 import Cookies from "js-cookie";
 
 const CoworkingsPage = () => {
   const [coworkings, setCoworkings] = useState([]);
   const [deleteCoworkingMessage, setDeleteCoworkingMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   const fetchCoworkings = async () => {
     const response = await fetch("http://localhost:3010/api/coworkings", {
@@ -21,6 +23,9 @@ const CoworkingsPage = () => {
   // la fonction fetchCoworkings à chaque fois que
   // la variable deleteCoworkingMessage est modifiée
   useEffect(() => {
+    if (!Cookies.get("jwt")) {
+      navigate("/login");
+    }
     fetchCoworkings();
   }, [deleteCoworkingMessage]);
 

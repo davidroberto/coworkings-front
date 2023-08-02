@@ -64,6 +64,10 @@ const UpdateCoworkingPage = () => {
   };
 
   useEffect(() => {
+    if (!Cookies.get("jwt")) {
+      navigate("/login");
+    }
+
     fetchCoworking();
   }, []);
 
