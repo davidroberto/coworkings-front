@@ -1,8 +1,22 @@
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
 
 const CoworkingsPagePublic = () => {
   const [coworkings, setCoworkings] = useState([]);
+
+  let isUserConnected = false;
+
+  const jwt = Cookies.get("jwt");
+
+  if (jwt) {
+    const decodedJwt = jwtDecode(jwt);
+    const role = decodedJwt.data.role;
+
+    if (role === 1 || role === 2 || role === 3) {
+      isUserConnected = true;
+    }
+  }
 
   const fetchCoworkings = async () => {
     const response = await fetch("http://localhost:3010/api/coworkings", {
@@ -30,9 +44,6 @@ const CoworkingsPagePublic = () => {
       content: content,
       rating: parseInt(rating),
     };
-
-    // récupère le jwt dans les cookies
-    const jwt = Cookies.get("jwt");
 
     // je fais l'appel fetch de création
     // en lui passant les données du form
@@ -63,15 +74,17 @@ const CoworkingsPagePublic = () => {
               Adresse :{coworking.address.number} {coworking.address.street} - {coworking.address.postcode}
               {coworking.address.city}
             </p>
-            <form onSubmit={(event) => handleCreateReview(event, coworking.id)}>
-              <label htmlFor="content">Votre review</label>
-              <textarea name="content" rows="4" cols="50"></textarea>
+            {isUserConnected && (
+              <form onSubmit={(event) => handleCreateReview(event, coworking.id)}>
+                <label htmlFor="content">Votre review</label>
+                <textarea name="content" rows="4" cols="50"></textarea>
 
-              <label htmlFor="rating">Votre note</label>
-              <input type="number" name="rating" min="0" max="5" />
+                <label htmlFor="rating">Votre note</label>
+                <input type="number" name="rating" min="0" max="5" />
 
-              <button type="submit">Créer la review</button>
-            </form>
+                <button type="submit">Créer la review</button>
+              </form>
+            )}
           </div>
         ))}
       </div>
