@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../component/admin/HeaderAdmin";
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 
 const CoworkingsPage = () => {
   const [coworkings, setCoworkings] = useState([]);
@@ -23,9 +24,28 @@ const CoworkingsPage = () => {
   // la fonction fetchCoworkings à chaque fois que
   // la variable deleteCoworkingMessage est modifiée
   useEffect(() => {
-    if (!Cookies.get("jwt")) {
+    // on récupère le token jwt en cookie
+    const jwt = Cookies.get("jwt");
+
+    // s'il existe pas, ça veut que l'utilisateur n'est pas connecté
+    // on le redirige vers la page de login
+    if (!jwt) {
       navigate("/login");
     }
+
+    // on décode le jwt
+    const user = jwtDecode(jwt);
+
+    // on vérifie son rôle :
+    // s'il a un role admin ou editor,
+    // on le redirige vers l'accueil admin
+    if (user.data.role === 3 || user.data.role === 2) {
+      navigate("/admin");
+      // sinon on le redirige vers l'accueil public
+    } else {
+      navigate("/");
+    }
+
     fetchCoworkings();
   }, [deleteCoworkingMessage]);
 

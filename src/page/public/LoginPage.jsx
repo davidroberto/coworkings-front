@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
@@ -29,7 +30,19 @@ const LoginPage = () => {
       // je stocke le jwt dans un cookie
       Cookies.set("jwt", jwt);
 
-      navigate("/admin");
+      // on récupère le username dans le jwt
+      // on récupère toutes les infos de l'user via l'api
+      // en fonction du rôle récupéré avec l'appel fetch
+      // on redirige vers l'accueil admin si le role est admin ou editor
+      // sinon on redirige vers l'accueil public
+
+      const user = jwtDecode(jwt);
+
+      if (user.data.role === 3 || user.data.role === 2) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     }
   };
 

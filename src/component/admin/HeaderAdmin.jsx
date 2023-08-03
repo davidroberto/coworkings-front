@@ -12,7 +12,7 @@ const HeaderAdmin = () => {
   };
 
   const jwt = Cookies.get("jwt");
-  const user = jwtDecode(jwt);
+  const userData = jwtDecode(jwt);
 
   return (
     <header>
@@ -28,7 +28,7 @@ const HeaderAdmin = () => {
             <Link to={"/admin/coworkings/create"}>Ajouter un coworking</Link>
           </li>
           <li>
-            <p>Connecté en tant que {user.data}</p>
+            <p>Connecté en tant que {userData.data.username}</p>
           </li>
           <li>
             <a href="#" onClick={handleLogout}>
