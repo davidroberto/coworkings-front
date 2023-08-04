@@ -39,12 +39,12 @@ const CoworkingsPage = () => {
     // on vérifie son rôle :
     // s'il a un role admin ou editor,
     // on le redirige vers l'accueil admin
-    if (user.data.role === 3 || user.data.role === 2) {
-      navigate("/admin");
-      // sinon on le redirige vers l'accueil public
-    } else {
-      navigate("/");
-    }
+    // if (user.data.role === 3 || user.data.role === 2) {
+    //   navigate("/admin");
+    //   // sinon on le redirige vers l'accueil public
+    // } else {
+    //   navigate("/");
+    // }
 
     fetchCoworkings();
   }, [deleteCoworkingMessage]);

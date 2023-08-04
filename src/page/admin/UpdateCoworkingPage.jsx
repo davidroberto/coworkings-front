@@ -8,6 +8,7 @@ const UpdateCoworkingPage = () => {
   const navigate = useNavigate();
 
   const [coworking, setCoworking] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const fetchCoworking = async () => {
     const responseCoworking = await fetch(`http://localhost:3010/api/coworkings/${id}`);
@@ -60,6 +61,11 @@ const UpdateCoworkingPage = () => {
 
     if (responseUpdate.status === 200) {
       navigate("/admin/coworkings");
+    } else {
+      const responseJs = await responseUpdate.json();
+      const errorMessage = responseJs.message;
+
+      setErrorMessage(errorMessage);
     }
   };
 
@@ -74,6 +80,7 @@ const UpdateCoworkingPage = () => {
   return (
     <>
       <HeaderAdmin />
+      {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={handleUpdateCoworking}>
         <div>
           <label htmlFor="name">Name</label>

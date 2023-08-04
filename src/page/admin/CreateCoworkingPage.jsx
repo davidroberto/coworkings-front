@@ -40,6 +40,11 @@ const CreateCoworkingPage = () => {
       },
     };
 
+    const formData = new FormData();
+    formData.append("image", event.target.image.files[0]);
+
+    formData.append("coworking", JSON.stringify(coworkingData));
+
     // on fait l'appel à l'api
     // avec une requête POST
     // en lui passant les données du coworking
@@ -50,17 +55,19 @@ const CreateCoworkingPage = () => {
 
     const responseCreate = await fetch("http://localhost:3010/api/coworkings", {
       method: "POST",
-      body: JSON.stringify(coworkingData),
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
 
     const responseCreateJs = await responseCreate.json();
 
+    console.log(responseCreateJs);
+
     // on redirige vers la liste des coworkings
-    navigate("/admin/coworkings");
+    // navigate("/admin/coworkings");
   };
 
   useEffect(() => {
@@ -122,6 +129,11 @@ const CreateCoworkingPage = () => {
         <div>
           <label htmlFor="address_city">Address city</label>
           <input type="text" name="address_city" />
+        </div>
+
+        <div>
+          <label htmlFor="image">Address city</label>
+          <input type="file" name="image" />
         </div>
 
         <input type="submit" />
