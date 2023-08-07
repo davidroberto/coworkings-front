@@ -41,9 +41,9 @@ const CreateCoworkingPage = () => {
     };
 
     const formData = new FormData();
-    formData.append("image", event.target.image.files[0]);
 
-    formData.append("coworking", JSON.stringify(coworkingData));
+    formData.append("image", event.target.image.files[0]);
+    formData.append("data", JSON.stringify(coworkingData));
 
     // on fait l'appel à l'api
     // avec une requête POST
@@ -53,7 +53,7 @@ const CreateCoworkingPage = () => {
 
     const token = Cookies.get("jwt");
 
-    const responseCreate = await fetch("http://localhost:3010/api/coworkings", {
+    const responseCreate = await fetch("http://localhost:3010/api/coworkings/withImg", {
       method: "POST",
       body: formData,
       headers: {
